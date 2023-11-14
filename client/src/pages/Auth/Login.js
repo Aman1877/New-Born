@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useAuth } from "../../context/auth";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -6,7 +8,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFacebookF } from "@fortawesome/free-brands-svg-icons";
 import { faTwitter } from "@fortawesome/free-brands-svg-icons";
 import { faGoogle } from "@fortawesome/free-brands-svg-icons";
-
 import {
   MDBContainer,
   MDBRow,
@@ -14,39 +15,41 @@ import {
   MDBCard,
   MDBCardBody,
   MDBInput,
-  MDBIcon,
 } from "mdb-react-ui-kit";
 
 import "../../styles/LoginStyle.css";
 
 function Login() {
-  const [name, setName] = useState("");
+  const [auth, setAuth] = useAuth();
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
 
   // form submit
   const handleSbumit = async (e) => {
     e.preventDefault();
     try {
-      e.preventDefault();
       const response = await axios.post(
-        `${process.env.REACT_APP_API}/api/v1/auth/register`,
+        `${process.env.REACT_APP_API}/api/v1/auth/login`,
         {
-          name: name,
           email: email,
-          phone: phone,
           password: password,
         }
       );
       if (response && response.data.success) {
-        toast.success("User Register Successfully");
+        toast.success("User Logged In Successfully");
+        setAuth({
+          ...auth,
+          user: response.data.user,
+          token: response.data.token,
+        });
+        localStorage.setItem("auth", JSON.stringify(response.data));
+        navigate("/");
       } else {
         toast.error(response.data.message);
       }
-      console.log(response);
     } catch (error) {
-      console.log(error);
+      toast.error("Something went wrong");
     }
   };
 
@@ -114,17 +117,33 @@ function Login() {
                   type="password"
                 />
 
+                <a
+                  href="/forgot-password"
+                  style={{
+                    color: "#34495e",
+                    textDecoration: "none",
+                    transition: "color 0.3s ease",
+                    float: "right",
+                    marginRight: "20px",
+                    marginBottom: "15px",
+                  }}
+                  onMouseOver={(e) => (e.target.style.color = "#e74c3c")} // Darker color on hover
+                  onMouseOut={(e) => (e.target.style.color = "#34495e")} // Restore original color on mouse out
+                >
+                  Forgot Password?
+                </a>
+
                 <button
                   type="button"
-                  class="btn btn-primary w-100 mb-4"
+                  className="btn btn-primary w-100 mb-4"
                   style={{ maxWidth: "600px", margin: "0 auto" }}
                   onClick={handleSbumit}
                 >
-                  Sign up
+                  Log in
                 </button>
 
                 <div className="text-center">
-                  <p>or sign up with:</p>
+                  <p>or log in with:</p>
 
                   <a href="#" className="btn btn-outline-primary mx-3">
                     <FontAwesomeIcon icon={faFacebookF} size="sm" />

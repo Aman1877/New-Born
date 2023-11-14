@@ -1,10 +1,11 @@
 import joi from "joi";
 
+// Schema for Registration 
 export const userValid = joi.object({
   name: joi.string().required().error(new Error("Please enter a Name")),
   email: joi
     .string()
-    .email()
+    .email({ minDomainSegments: 2, tlds: { allow: ["com", "net"] } })
     .required()
     .error(new Error("Please enter a valid Email")),
   password: joi
@@ -27,4 +28,23 @@ export const userValid = joi.object({
     .min(10)
     .error(new Error("Please enter a valid Phone Number")),
   role: joi.number().default(0),
+});
+
+// Schema for Login
+export const userLogin = joi.object({
+  email: joi
+    .string()
+    .email({ minDomainSegments: 2, tlds: { allow: ["com", "net"] } })
+    .required()
+    .error(new Error("Please enter a valid Email")),
+  password: joi.string().required().error(new Error("Please enter a Password")),
+});
+
+// Schema for OTP 
+export const sendOTP = joi.object({
+  email: joi
+    .string()
+    .email({ minDomainSegments: 2, tlds: { allow: ["com", "net"] } })
+    .required()
+    .error(new Error("Please enter a valid Email")),
 });

@@ -1,12 +1,8 @@
 import React, { useState } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFacebookF } from "@fortawesome/free-brands-svg-icons";
-import { faTwitter } from "@fortawesome/free-brands-svg-icons";
-import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 
 import {
   MDBContainer,
@@ -15,41 +11,32 @@ import {
   MDBCard,
   MDBCardBody,
   MDBInput,
-  MDBIcon,
 } from "mdb-react-ui-kit";
 
-import "../../styles/RegisterStyle.css";
+import "../../styles/ForgetPassword.css";
 
-function Register() {
-  const [name, setName] = useState("");
+function ForgetPassword() {
   const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  // form submit
-  const handleSbumit = async (e) => {
+  // Handle form submission
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      e.preventDefault();
       const response = await axios.post(
-        `${process.env.REACT_APP_API}/api/v1/auth/register`,
+        `${process.env.REACT_APP_API}/api/v1/auth/send-otp`,
         {
-          name: name,
           email: email,
-          phone: phone,
-          password: password,
         }
       );
       if (response && response.data.success) {
-        toast.success("User Register Successfully");
-        navigate("/login");
+        toast.success("OTP sent Successfully");
+        navigate("/otp");
       } else {
         toast.error(response.data.message);
       }
-      console.log(response);
     } catch (error) {
-      console.log(error);
+      toast.error("Something went wrong");
     }
   };
 
@@ -87,26 +74,16 @@ function Register() {
 
           <MDBCol md="6" className="position-relative">
             <div
-              id="radius-shape-1"
+              id="radius-shape-5"
               className="position-absolute rounded-circle shadow-5-strong"
             ></div>
             <div
-              id="radius-shape-2"
+              id="radius-shape-6"
               className="position-absolute shadow-5-strong"
             ></div>
 
             <MDBCard className="my-5 bg-glass">
               <MDBCardBody className="p-5">
-                <MDBInput
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  placeholder="Enter Your Name"
-                  wrapperClass="mb-3"
-                  label="Name"
-                  id="form1"
-                  type="text"
-                />
-
                 <MDBInput
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -117,50 +94,14 @@ function Register() {
                   type="email"
                 />
 
-                <MDBInput
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  placeholder="Enter Your Password"
-                  wrapperClass="mb-3"
-                  label="Password"
-                  id="form3"
-                  type="password"
-                />
-
-                <MDBInput
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
-                  placeholder="Enter Your Phone Number"
-                  wrapperClass="mb-3"
-                  label="Phone Number"
-                  id="form4"
-                  type="text"
-                />
-
                 <button
                   type="button"
                   className="btn btn-primary w-100 mb-4"
                   style={{ maxWidth: "600px", margin: "0 auto" }}
-                  onClick={handleSbumit}
+                  onClick={handleSubmit}
                 >
-                  Sign up
+                  Send OTP
                 </button>
-
-                <div className="text-center">
-                  <p>or sign up with:</p>
-
-                  <a href="#" className="btn btn-outline-primary mx-3">
-                    <FontAwesomeIcon icon={faFacebookF} size="sm" />
-                  </a>
-
-                  <a href="#" className="btn btn-outline-primary mx-3">
-                    <FontAwesomeIcon icon={faTwitter} size="sm" />
-                  </a>
-
-                  <a href="#" className="btn btn-outline-danger mx-3">
-                    <FontAwesomeIcon icon={faGoogle} size="sm" />
-                  </a>
-                </div>
               </MDBCardBody>
             </MDBCard>
           </MDBCol>
@@ -171,4 +112,4 @@ function Register() {
   );
 }
 
-export default Register;
+export default ForgetPassword;

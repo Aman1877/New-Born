@@ -19,7 +19,8 @@
   width: 220px;
   top: -60px;
   left: -130px;
-  background: radial-gradient(#44006b, #ad1fff);
+  background: radial-gradient(#ff8a80, #ffd180);
+  /* Light Red to Light Orange gradient */
   overflow: hidden;
 }
 
@@ -29,9 +30,14 @@
   right: -110px;
   width: 300px;
   height: 300px;
-  background: radial-gradient(#44006b, #ad1fff);
+  background: radial-gradient(#66bb6a, #ffeb3b);
+  /* Light Green to Yellow gradient */
   overflow: hidden;
 }
+
+
+
+
 
 .bg-glass {
   background-color: hsla(0, 0%, 100%, 0.434) !important;
