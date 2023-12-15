@@ -137,6 +137,22 @@ function Register() {
                   type="text"
                 />
 
+                <a
+                  href="/login"
+                  style={{
+                    color: "#34495e",
+                    textDecoration: "none",
+                    transition: "color 0.3s ease",
+                    float: "right",
+                    marginRight: "20px",
+                    marginBottom: "15px",
+                  }}
+                  onMouseOver={(e) => (e.target.style.color = "#e74c3c")} // Darker color on hover
+                  onMouseOut={(e) => (e.target.style.color = "#34495e")} // Restore original color on mouse out
+                >
+                  Already have an account?
+                </a>
+
                 <button
                   type="button"
                   className="btn btn-primary w-100 mb-4"

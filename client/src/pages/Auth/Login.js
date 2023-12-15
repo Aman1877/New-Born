@@ -118,6 +118,22 @@ function Login() {
                 />
 
                 <a
+                  href="/register"
+                  style={{
+                    color: "#34495e",
+                    textDecoration: "none",
+                    transition: "color 0.3s ease",
+                    float: "left",
+                    marginLeft: "10px",
+                    marginBottom: "15px",
+                  }}
+                  onMouseOver={(e) => (e.target.style.color = "#e74c3c")} // Darker color on hover
+                  onMouseOut={(e) => (e.target.style.color = "#34495e")} // Restore original color on mouse out
+                >
+                  Sign Up?
+                </a>
+
+                <a
                   href="/forgot-password"
                   style={{
                     color: "#34495e",

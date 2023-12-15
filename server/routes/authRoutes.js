@@ -8,6 +8,7 @@ import {
 
 import {
   addLoginValidation,
+  addOTPPassvalidation,
   addOTPvalidation,
   addUserValidation,
 } from "../validation/users/userValidation.js";
@@ -24,6 +25,6 @@ router.post("/login", addLoginValidation, loginController);
 router.post("/send-otp", addOTPvalidation, sendOTPController);
 
 // Reset Password routes
-router.post("/submit-otp", submitOTPController);
+router.post("/submit-otp", addOTPPassvalidation, submitOTPController);
 
 export default router;

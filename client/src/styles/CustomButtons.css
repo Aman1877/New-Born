@@ -1,0 +1,56 @@
+/* CustomButtons.css */
+
+/* Navbar container */
+.navbar {
+    background-color: #2874f0;
+}
+
+/* Nav links common styles */
+.nav-link,
+.dropdown-toggle {
+    color: white;
+    text-decoration: none;
+    padding: 8px 15px;
+    position: relative;
+    transition: color 0.3s, background-color 0.3s, border-radius 0.3s;
+}
+
+/* Nav links hover effect */
+.nav-link:hover,
+.dropdown-toggle:hover {
+    color: #ffffff;
+    background-color: #ffffff1a;
+    border-radius: 4px;
+}
+
+/* Underline effect on hover */
+.nav-link::after,
+.dropdown-toggle::after {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background-color: #ffffff;
+    bottom: 0;
+    left: 0;
+    transform: scaleX(0);
+    transform-origin: bottom center;
+    transition: transform 0.3s ease-in-out;
+    border-radius: 2px;
+}
+
+/* Expand the underline on hover */
+.nav-link:hover::after,
+.dropdown-toggle:hover::after {
+    transform: scaleX(1);
+}
+
+/* Dropdown styles */
+.dropdown {
+    position: relative;
+}
+
+.dropdown-menu {
+    background-color: rgba(255, 255, 255, 0.173);
+}
